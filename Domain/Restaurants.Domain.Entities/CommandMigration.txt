@@ -1,0 +1,34 @@
+------------------
+
+dotnet tool uninstall --global dotnet-ef
+
+dotnet tool install --global dotnet-ef --version 6.0.24
+
+# Create a tool manifest file if it doesn't exist
+dotnet new tool-manifest
+
+# Install the specific version of dotnet-ef locally
+dotnet tool install dotnet-ef --version 8.0.6
+
+dotnet dotnet-ef migrations add InitialCreate
+
+dotnet dotnet-ef database update
+
+dotnet ef database update --startup-project ../../Presentation/Restaurants.Presentation.Api
+
+------------ Application de la migration ------------
+# Se placer dans ce dossier avant de faire la migration
+cd  Infrastructure/Restaurants.Infrastructure.Database 
+
+# Créer une migration avec le bon nom exemple : 
+
+dotnet ef migrations add AjoutUrlLogoRestaurant --context RestaurantsDbContext  --output-dir Migrations/ApplicationMigrations --startup-project ../../Presentation/Restaurants.Presentation.Api
+dotnet ef migrations add CustomIdentityTablesMigration --context IdentityDbContext --output-dir Migrations/IdentityMigrations --startup-project ../../Presentation/Restaurants.Presentation.Api
+# dotnet ef migrations add --project Infrastructure/Restaurants.Infrastructure.Database/Restaurants.Infrastructure.Database.csproj --startup-project Presentation/Restaurants.Presentation.Api/Restaurants.Presentation.Api.csproj 
+# --context Restaurants.Infrastructure.Database.RestaurantsDbContext --configuration Debug --verbose AjoutLogoRestaurant --output-dir Migrations/ApplicationMigrations
+
+
+# Appliquer la migration sur la base de donner: 
+
+dotnet ef database update --context IdentityDbContext --startup-project ../../Presentation/Restaurants.Presentation.Api
+dotnet ef database update --context RestaurantsDbContext --startup-project ../../Presentation/Restaurants.Presentation.Api

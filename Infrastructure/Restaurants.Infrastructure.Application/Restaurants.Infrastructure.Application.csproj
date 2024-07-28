@@ -1,0 +1,24 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <Reference Include="Microsoft.AspNetCore.Authorization">
+            <HintPath>..\..\..\..\..\..\..\usr\local\share\dotnet\shared\Microsoft.AspNetCore.App\8.0.6\Microsoft.AspNetCore.Authorization.dll</HintPath>
+        </Reference>
+        <Reference Include="Microsoft.Extensions.Identity.Core">
+            <HintPath>..\..\..\..\..\..\..\usr\local\share\dotnet\shared\Microsoft.AspNetCore.App\8.0.6\Microsoft.Extensions.Identity.Core.dll</HintPath>
+        </Reference>
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\..\Application\Restaurants.Application.Bussiness\Restaurants.Application.Bussiness.csproj"/>
+        <ProjectReference Include="..\..\Domain\Restaurants.Domain.Entities\Restaurants.Domain.Entities.csproj"/>
+        <ProjectReference Include="..\..\Domain\Restaurants.Domain.Services\Restaurants.Domain.Services.csproj"/>
+    </ItemGroup>
+
+</Project>
