@@ -399,9 +399,12 @@ FodyWeavers.xsd
 # JetBrains Rider
 *.sln.iml
 
-# Fichiers de dev
-*/appsettings.*.json
-*/serilog.*.json
+# Ignore all appsettings files except the one for production
+appsettings.*.json
+serilog.*.json
+
+!appsettings.json
+!serilog.json
 
 
 
