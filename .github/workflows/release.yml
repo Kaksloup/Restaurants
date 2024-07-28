@@ -82,7 +82,7 @@ jobs:
       - name: List files for debugging
         run: |
           echo "Listing downloaded artifact files:"
-          cd ${{runner.workspace}} ls
+          ls -R ${{runner.workspace}}
           
       - name: App Settings Variable Substitution
         uses: microsoft/variable-substitution@v1
