@@ -3,12 +3,10 @@
 
 # Le nom 
 
-name: restaurants-api
+name: restaurants-api-continuous-integration
 
 # Configuration du moment où il  est lancé
 on:
-  push:
-    branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
   workflow_dispatch:
