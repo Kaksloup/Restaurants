@@ -82,12 +82,12 @@ jobs:
       - name: List files for debugging
         run: |
           echo "Listing downloaded artifact files:"
-          ls -R ${{runner.workspace}}
+          ls  ${{runner.workspace}}
           
       - name: App Settings Variable Substitution
         uses: microsoft/variable-substitution@v1
         with:
-          files: '${{runner.workspace}}/restaurants-api/appsettings.json'
+          files: '${{runner.workspace}}/Restaurants/appsettings.json'
         env:
           ConnectionStrings__RestaurantsDb: ${{ secrets.DATABASE_CONNECTION_STRING }}
           BlobStorage__ConnectionString: ${{ secrets.STORAGE_CONNECTION_STRING }}
