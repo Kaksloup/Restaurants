@@ -89,9 +89,9 @@ jobs:
         with:
           files: '${{runner.workspace}}/Restaurants/appsettings.json'
         env:
-          ConnectionStrings__RestaurantsDb: ${{ secrets.DATABASE_CONNECTION_STRING }}
-          BlobStorage__ConnectionString: ${{ secrets.STORAGE_CONNECTION_STRING }}
-          BlobStorage__AccountKey: ${{ secrets.STORAGE_ACCOUNT_KEY }}
+          ConnectionStrings.RestaurantsDb: ${{ secrets.DATABASE_CONNECTION_STRING }}
+          BlobStorage.ConnectionString: ${{ secrets.STORAGE_CONNECTION_STRING }}
+          BlobStorage.AccountKey: ${{ secrets.STORAGE_ACCOUNT_KEY }}
 
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
