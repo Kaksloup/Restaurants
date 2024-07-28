@@ -5,7 +5,7 @@
 
 name: restaurants-api
 
-# Configuration du moment où il  est lancer
+# Configuration du moment où il  est lancé
 on:
   push:
     branches: [ "main" ]
