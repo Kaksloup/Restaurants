@@ -9,6 +9,10 @@ public class RestaurantsSeeder(RestaurantsDbContext restaurantsDbContext, Identi
 {
     public async Task SeedIdentityAsync()
     {
+        // Application de la migration automatique sur la base de données
+        if (identityDbContext.Database.GetPendingMigrations().Any())
+            await identityDbContext.Database.MigrateAsync();
+        
         if (await identityDbContext.Database.CanConnectAsync() && !identityDbContext.Roles.Any())
         {
             await identityDbContext.Roles.AddRangeAsync(GetSeedRoles());
@@ -72,8 +76,9 @@ public class RestaurantsSeeder(RestaurantsDbContext restaurantsDbContext, Identi
     {
         var onwer = new User
         {
-            Email = "test@owner.com"
+            Email = "test@admin.com"
         };
+        
         List<Restaurant> restaurants =
         [
             new Restaurant
@@ -106,7 +111,7 @@ public class RestaurantsSeeder(RestaurantsDbContext restaurantsDbContext, Identi
                     Street = "Cork St 5",
                     PostalCode = "WC2N 5DU"
                 },
-                Owner = onwer
+                OwnerId = 1,
             },
             new Restaurant
             {
@@ -122,7 +127,7 @@ public class RestaurantsSeeder(RestaurantsDbContext restaurantsDbContext, Identi
                     Street = "Boots 193",
                     PostalCode = "W1F 8SR"
                 },
-                Owner = onwer
+                OwnerId = 1,
             }
         ];
 
