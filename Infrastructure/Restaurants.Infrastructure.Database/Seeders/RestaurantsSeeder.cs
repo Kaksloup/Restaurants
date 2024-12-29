@@ -24,6 +24,12 @@ public class RestaurantsSeeder(RestaurantsDbContext restaurantsDbContext, Identi
             await identityDbContext.Users.AddRangeAsync(GetSeedUsers());
             await identityDbContext.SaveChangesAsync();
         }
+        
+        if (await identityDbContext.Database.CanConnectAsync() && !identityDbContext.UserRoles.Any())
+        {
+            await identityDbContext.UserRoles.AddRangeAsync(GetSeedUserRoles());
+            await identityDbContext.SaveChangesAsync();
+        }
     }
 
     public async Task SeedRestaurantAsync()
@@ -65,11 +71,23 @@ public class RestaurantsSeeder(RestaurantsDbContext restaurantsDbContext, Identi
                 PasswordHash = "AQAAAAIAAYagAAAAENGZwoicLQgz1QxczEkBduVBeYbVOLfKxfc9Q2boSn558T5CYsSHqcdzi8//KswQ3g==",
                 SecurityStamp = "KHTECUCNJYUWFWYF3VC3FHTTQZ6FGU3W",
                 ConcurrencyStamp = "5a169dd4-8705-48e3-be44-cc29c6eada6a",
-                LockoutEnabled = true
+                LockoutEnabled = true,
             }
         ];
 
         return users;
+    }
+    
+    private static List<UserRole> GetSeedUserRoles()
+    {
+        List<UserRole> userRoles =
+        [
+            new UserRole { UserId = 1, RoleId = 1},
+            new UserRole { UserId = 1, RoleId = 2},
+            new UserRole { UserId = 1, RoleId = 3},
+        ];
+
+        return userRoles;
     }
 
     private static List<Restaurant> GetSeedRestaurants()
