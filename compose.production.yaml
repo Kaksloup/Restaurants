@@ -1,0 +1,49 @@
+﻿services:
+  restaurants.presentation.api:
+    restart: always
+    image: yourusername/restaurant-app:latest # Image optimisée et versionnée
+    environment:
+      - ConnectionStrings__RestaurantsDb=Server=sqlserver-container;Database=RestaurantDb;User Id=sa;Password=securePassword!;Encrypt=True;TrustServerCertificate=True;
+      - BlobStorage__ConnectionString=DefaultEndpointsProtocol=http;AccountName=devstoreaccount1;AccountKey=secureBlobPassword!;BlobEndpoint=http://azurite:10000/devstoreaccount1;
+    depends_on:
+      - sqlserver-container
+      - azure-storage-emulator
+    ports:
+      - "5001:80" # Production: expose uniquement sur le port 5001
+    networks:
+      - restaurant-network
+
+  sqlserver-container:
+    restart: always
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    environment:
+      - ACCEPT_EULA=Y
+      - MSSQL_SA_PASSWORD=securePassword!
+      - MSSQL_PID=Express
+    ports:
+      - "1433:1433"
+    volumes:
+      - sqlserver-data:/var/opt/mssql
+    networks:
+      - restaurant-network
+
+  azure-storage-emulator:
+    restart: always
+    image: mcr.microsoft.com/azure-storage/azurite
+    container_name: azurite
+    ports:
+      - "10000:10000"
+      - "10001:10001"
+      - "10002:10002"
+    volumes:
+      - azurite-data:/data
+    networks:
+      - restaurant-network
+
+networks:
+  restaurant-network:
+    driver: bridge
+
+volumes:
+  sqlserver-data:
+  azurite-data:
